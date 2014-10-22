@@ -28,10 +28,9 @@ action :create do
 
   svc = "#{new_resource.category}/#{new_resource.name}"
 
-  # variables
+  # XML specifics
   xml_file = ::File.join(node[:smf][:dirs][:manifest], "#{svc}.xml")
   xml_dir = ::File.dirname(xml_file)
-
 
   # ensure the xml directory exists
   directory "#{svc} XML directory" do
