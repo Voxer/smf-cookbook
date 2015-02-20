@@ -38,6 +38,13 @@ action :create do
     recursive true
   end
 
+  # remove the manifest if the service doesn't exist
+  file "remove old #{xml_file}" do
+    path xml_file
+    not_if { shell_out(['svcs', svc]).exitstatus == 0 }
+    action :delete
+  end
+
   # import the XML
   execute "Import SMF Manifest for #{svc}" do
     command ['svccfg', 'import', xml_file]
